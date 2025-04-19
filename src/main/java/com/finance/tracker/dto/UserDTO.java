@@ -1,10 +1,13 @@
 package com.finance.tracker.dto;
 
+import java.util.List;
+
 public class UserDTO {
     private Long id;
     private String name;
     private String surname;
     private String email;
+    private List<AccountDTO> accounts;
 
     public UserDTO(Long id, String name, String surname, String email) {
         this.id = id;

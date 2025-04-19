@@ -1,47 +1,23 @@
-package com.finance.tracker.entities;
+package com.finance.tracker.dto;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.finance.tracker.entities.User;
 
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "accounts")
-public class Account {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AccountDTO {
     private Long id;
     private String accountName;
     private String accountType;
     private Double initialBalance;
     private String currency;
     private Boolean status;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
-
-    public Account() {
-    }
-
-    public Account(Long id, String accountName, String accountType, Double initialBalance, String currency,
-                   Boolean status, User user, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    private Long userId;
+    public AccountDTO(Long id, String accountName, String accountType, Double initialBalance, String currency, Boolean status,Long userId) {
         this.id = id;
         this.accountName = accountName;
         this.accountType = accountType;
         this.initialBalance = initialBalance;
         this.currency = currency;
         this.status = status;
-        this.user = user;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -92,27 +68,11 @@ public class Account {
         this.status = status;
     }
 
-    public User getUser(){
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user){
-        this.user = user;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
