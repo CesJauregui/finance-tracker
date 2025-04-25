@@ -1,5 +1,7 @@
 package com.finance.tracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,11 +29,16 @@ public class User {
     private String email;
 
     @NotBlank(message = "La contraseña es obligatoria")
-
+    @JsonIgnore
     private String password;
 
+    @JsonIgnoreProperties(value="user")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
+
+    @JsonIgnoreProperties(value="user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -43,13 +50,14 @@ public class User {
     }
 
     public User(Long id, String name, String surname, String email, String password, List<Account> account,
-                LocalDateTime createAt, LocalDateTime updateAt) {
+                List<Transaction> transaction, LocalDateTime createAt, LocalDateTime updateAt) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.accounts = account;
+        this.transactions = transaction;
         this.createAt = createAt;
         this.updateAt = updateAt;
     }
@@ -100,6 +108,14 @@ public class User {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public LocalDateTime getCreateAt() {

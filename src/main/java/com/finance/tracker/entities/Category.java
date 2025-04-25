@@ -1,5 +1,6 @@
 package com.finance.tracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,6 +23,10 @@ public class Category {
     @NotNull
     private String typeCategory;
 
+    @JsonIgnoreProperties(value="category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -33,10 +38,11 @@ public class Category {
 
     public Category(){}
 
-    public Category(Long id, String nameCategory, String typeCategory) {
+    public Category(Long id, String nameCategory, String typeCategory, List<Transaction> transactions) {
         this.id = id;
         this.nameCategory = nameCategory;
         this.typeCategory = typeCategory;
+        this.transactions = transactions;
     }
 
     public Long getId() {
@@ -69,5 +75,13 @@ public class Category {
 
     public void setTypeCategoryList(List<String> typeCategoryList) {
         this.typeCategoryList = typeCategoryList;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

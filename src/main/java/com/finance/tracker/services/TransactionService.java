@@ -1,0 +1,13 @@
+package com.finance.tracker.services;
+
+import com.finance.tracker.dto.TransactionDTO;
+import com.finance.tracker.entities.Transaction;
+
+import java.util.List;
+
+public interface TransactionService {
+    List<Transaction> getAll();
+    TransactionDTO getTransactionById(Long id);
+    TransactionDTO createTransaction(TransactionDTO transactionDTO);
+    void deleteTransaction(Long id);
+}
