@@ -5,7 +5,7 @@ import com.finance.tracker.entities.User;
 
 public class UserMapper {
     public static UserDTO toDto(User user){
-        return new UserDTO(user.getId(), user.getName(), user.getSurname(), user.getEmail());
+        return new UserDTO(user.getId(), user.getName(), user.getSurname(), user.getUsername());
     }
 
     public static User toEntity(UserDTO userDTO){
@@ -13,7 +13,7 @@ public class UserMapper {
         user.setId(userDTO.getId());
         user.setName(userDTO.getName());
         user.setSurname(userDTO.getSurname());
-        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getUsername());
 
         return user;
     }

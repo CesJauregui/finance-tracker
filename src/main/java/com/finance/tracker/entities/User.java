@@ -3,7 +3,6 @@ package com.finance.tracker.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -24,9 +23,8 @@ public class User {
     @NotBlank(message = "El apellido es obligatorio")
     private String surname;
 
-    @Email(message = "Debe ser un correo válido")
-    @NotBlank(message = "El email es obligatorio")
-    private String email;
+    @NotBlank(message = "El nombre de usuario es obligatorio")
+    private String username;
 
     @NotBlank(message = "La contraseña es obligatoria")
     @JsonIgnore
@@ -49,12 +47,12 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String surname, String email, String password, List<Account> account,
+    public User(Long id, String name, String surname, String username, String password, List<Account> account,
                 List<Transaction> transaction, LocalDateTime createAt, LocalDateTime updateAt) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.email = email;
+        this.username = username;
         this.password = password;
         this.accounts = account;
         this.transactions = transaction;
@@ -86,12 +84,12 @@ public class User {
         this.surname = surname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

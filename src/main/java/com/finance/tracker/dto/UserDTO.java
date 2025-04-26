@@ -6,14 +6,14 @@ public class UserDTO {
     private Long id;
     private String name;
     private String surname;
-    private String email;
+    private String username;
     private List<AccountDTO> accounts;
 
-    public UserDTO(Long id, String name, String surname, String email) {
+    public UserDTO(Long id, String name, String surname, String username) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.email = email;
+        this.username = username;
     }
 
     public Long getId() {
@@ -40,11 +40,11 @@ public class UserDTO {
         this.surname = surname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
