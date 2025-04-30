@@ -10,6 +10,7 @@ import com.finance.tracker.repositories.TransactionRepository;
 import com.finance.tracker.repositories.UserRepository;
 import com.finance.tracker.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> getAll() {
-        return transactionRepository.findAll();
+        return transactionRepository.findAll(Sort.by(Sort.Direction.DESC,"createdAt"));
     }
 
     @Override
