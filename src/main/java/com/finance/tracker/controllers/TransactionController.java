@@ -25,7 +25,7 @@ public class TransactionController {
         try {
             transactionService.createTransaction(transaction);
 
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

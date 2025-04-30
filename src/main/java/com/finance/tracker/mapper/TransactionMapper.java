@@ -6,7 +6,7 @@ import com.finance.tracker.entities.Transaction;
 public class TransactionMapper {
     public static TransactionDTO toDTO(Transaction transaction){
         return new TransactionDTO(transaction.getId(), transaction.getTypeCategory(), transaction.getAmount(),
-                transaction.getDescription(), transaction.getUser().getId(), transaction.getCategory().getId());
+                transaction.getDescription(), transaction.getDate(), transaction.getUser().getId(), transaction.getCategory().getId());
     }
 
     public static Transaction toEntity(TransactionDTO transactionDTO){
@@ -15,6 +15,7 @@ public class TransactionMapper {
         transaction.setTypeCategory(transactionDTO.getTypeCategory());
         transaction.setAmount(transactionDTO.getAmount());
         transaction.setDescription(transactionDTO.getDescription());
+        transaction.setDate(transactionDTO.getDate());
 
         return transaction;
     }

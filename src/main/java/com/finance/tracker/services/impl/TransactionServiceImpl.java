@@ -45,6 +45,7 @@ public class TransactionServiceImpl implements TransactionService {
         newTransaction.setTypeCategory(transaction.getTypeCategory());
         newTransaction.setAmount(transaction.getAmount());
         newTransaction.setDescription(transaction.getDescription());
+        newTransaction.setDate(transaction.getDate());
 
         Category category = categoryRepository.findById(transaction.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));

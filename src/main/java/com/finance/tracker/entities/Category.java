@@ -1,13 +1,13 @@
 package com.finance.tracker.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.finance.tracker.enums.CategoryList;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -20,8 +20,10 @@ public class Category {
     @NotNull
     @Column(unique = true)
     private String nameCategory;
+
+    @Enumerated(EnumType.STRING)
     @NotNull
-    private String typeCategory;
+    private CategoryList typeCategory;
 
     @JsonIgnoreProperties(value="category")
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
@@ -34,11 +36,9 @@ public class Category {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private List<String> typeCategoryList = Arrays.asList("Ingreso","Egreso");
-
     public Category(){}
 
-    public Category(Long id, String nameCategory, String typeCategory, List<Transaction> transactions) {
+    public Category(Long id, String nameCategory, CategoryList typeCategory, List<Transaction> transactions) {
         this.id = id;
         this.nameCategory = nameCategory;
         this.typeCategory = typeCategory;
@@ -61,20 +61,12 @@ public class Category {
         this.nameCategory = nameCategory;
     }
 
-    public String getTypeCategory() {
+    public CategoryList getTypeCategory() {
         return typeCategory;
     }
 
-    public void setTypeCategory(String typeCategory) {
+    public void setTypeCategory(CategoryList typeCategory) {
         this.typeCategory = typeCategory;
-    }
-
-    public List<String> getTypeCategoryList() {
-        return typeCategoryList;
-    }
-
-    public void setTypeCategoryList(List<String> typeCategoryList) {
-        this.typeCategoryList = typeCategoryList;
     }
 
     public List<Transaction> getTransactions() {

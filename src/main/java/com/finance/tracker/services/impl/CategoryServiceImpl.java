@@ -2,7 +2,6 @@ package com.finance.tracker.services.impl;
 
 import com.finance.tracker.dto.CategoryDTO;
 import com.finance.tracker.entities.Category;
-import com.finance.tracker.exceptions.InvalidCategoryTypeException;
 import com.finance.tracker.mapper.CategoryMapper;
 import com.finance.tracker.repositories.CategoryRepository;
 import com.finance.tracker.services.CategoryService;
@@ -34,10 +33,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO createCategory(Category category) {
-
-        if (!category.getTypeCategoryList().contains(category.getTypeCategory())) {
-            throw new InvalidCategoryTypeException("Tipo de categoría no válido: " + category.getTypeCategory());
-        }
         Category newCategory = new Category();
         newCategory.setNameCategory(category.getNameCategory());
         newCategory.setTypeCategory(category.getTypeCategory());

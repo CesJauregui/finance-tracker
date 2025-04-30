@@ -1,12 +1,14 @@
 package com.finance.tracker.dto;
 
+import com.finance.tracker.enums.CategoryList;
+
 public class CategoryDTO {
 
     private Long id;
     private String nameCategory;
-    private String typeCategory;
+    private CategoryList typeCategory;
 
-    public CategoryDTO(Long id, String nameCategory, String typeCategory) {
+    public CategoryDTO(Long id, String nameCategory, CategoryList typeCategory) {
         this.id = id;
         this.nameCategory = nameCategory;
         this.typeCategory = typeCategory;
@@ -28,11 +30,11 @@ public class CategoryDTO {
         this.nameCategory = nameCategory;
     }
 
-    public String getTypeCategory() {
+    public CategoryList getTypeCategory() {
         return typeCategory;
     }
 
-    public void setTypeCategory(String typeCategory) {
+    public void setTypeCategory(CategoryList typeCategory) {
         this.typeCategory = typeCategory;
     }
 }

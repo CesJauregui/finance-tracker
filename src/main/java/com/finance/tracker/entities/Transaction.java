@@ -1,6 +1,7 @@
 package com.finance.tracker.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.finance.tracker.enums.CategoryList;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,9 +15,12 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String typeCategory;
+    @Enumerated(EnumType.STRING)
+    private CategoryList typeCategory;
+
     private Double amount;
     private String description;
+    private String date;
 
     @JsonIgnoreProperties(value="transactions")
     @ManyToOne
@@ -37,11 +41,12 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, String typeCategory, Double amount, String description, User user, Category category) {
+    public Transaction(Long id, CategoryList typeCategory, Double amount, String description, String date, User user, Category category) {
         this.id = id;
         this.typeCategory = typeCategory;
         this.amount = amount;
         this.description = description;
+        this.date = date;
         this.user = user;
         this.category = category;
     }
@@ -54,11 +59,11 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getTypeCategory() {
+    public CategoryList getTypeCategory() {
         return typeCategory;
     }
 
-    public void setTypeCategory(String typeCategory) {
+    public void setTypeCategory(CategoryList typeCategory) {
         this.typeCategory = typeCategory;
     }
 
@@ -92,5 +97,13 @@ public class Transaction {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
