@@ -1,5 +1,6 @@
 package com.finance.tracker.controllers;
 
+import com.finance.tracker.dto.SummaryResponseDTO;
 import com.finance.tracker.dto.TransactionDTO;
 import com.finance.tracker.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,8 @@ public class TransactionController {
         }
     }
 
+    @GetMapping("/summary")
+    public SummaryResponseDTO getSummary(){
+        return transactionService.getTotalByCategory();
+    }
 }

@@ -1,5 +1,7 @@
 package com.finance.tracker.services.impl;
 
+import com.finance.tracker.dto.SummaryResponseDTO;
+import com.finance.tracker.dto.TotalByCategoryDTO;
 import com.finance.tracker.dto.TransactionDTO;
 import com.finance.tracker.entities.Category;
 import com.finance.tracker.entities.Transaction;
@@ -62,5 +64,17 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void deleteTransaction(Long id) {
         transactionRepository.deleteById(id);
+    }
+
+    @Override
+    public SummaryResponseDTO getTotalByCategory(){
+        List<Object[]> results = transactionRepository.getTotalByCategoryTransaction();
+
+        List<TotalByCategoryDTO> subtotales = results.stream()
+                .map(r -> new TotalByCategoryDTO((String) r[0], (Double) r[1]))
+                .toList();
+
+        Double totalGeneral = transactionRepository.getTotal();
+        return new SummaryResponseDTO(subtotales,totalGeneral);
     }
 }
