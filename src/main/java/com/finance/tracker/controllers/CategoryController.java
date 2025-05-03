@@ -42,7 +42,7 @@ public class CategoryController {
                     .buildAndExpand(newCategory.getId())
                     .toUri();
 
-            return ResponseEntity.created(location).build();
+            return ResponseEntity.created(location).body(newCategory);
         } catch (InvalidCategoryTypeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         } catch (DataIntegrityViolationException e) {

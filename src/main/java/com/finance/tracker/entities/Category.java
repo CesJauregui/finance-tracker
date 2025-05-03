@@ -3,6 +3,7 @@ package com.finance.tracker.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.finance.tracker.enums.CategoryList;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,6 +20,7 @@ public class Category {
 
     @NotNull
     @Column(unique = true)
+    @NotBlank
     private String nameCategory;
 
     @Enumerated(EnumType.STRING)
