@@ -3,6 +3,7 @@ package com.finance.tracker.exceptions;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,5 +30,13 @@ public class GlobalExceptionHandler{
     body.put("error", "Llave duplicada viola restricción de unicidad");
     body.put("message", ex.getMessage());
     return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler(BadCredentialsException.class)
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  public ResponseEntity<Map<String,String>> handleBadCredentialsException(BadCredentialsException ex){
+    Map<String, String> body = new HashMap<>();
+    body.put("message", "Credenciales inválidas");
+    return new ResponseEntity<>(body,HttpStatus.UNAUTHORIZED);
   }
 }
