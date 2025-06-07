@@ -67,14 +67,22 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public SummaryResponseDTO getTotalByCategory(){
-        List<Object[]> results = transactionRepository.getTotalByCategoryTransaction();
+    public SummaryResponseDTO getTotalByCategory(User user){
+        List<Object[]> results = transactionRepository.getTotalByCategoryTransaction(user.getId());
 
         List<TotalByCategoryDTO> subtotales = results.stream()
                 .map(r -> new TotalByCategoryDTO((String) r[0], (Double) r[1]))
                 .toList();
 
-        Double totalGeneral = transactionRepository.getTotal();
+        Double totalGeneral = transactionRepository.getTotal(user.getId());
         return new SummaryResponseDTO(subtotales,totalGeneral);
+    }
+
+    @Override
+    public List<TransactionDTO> getTransactionByUser(User user){
+        return transactionRepository.findByUsername(user.getUsername())
+                .stream()
+                .map(TransactionMapper::toDTO)
+                .toList();
     }
 }

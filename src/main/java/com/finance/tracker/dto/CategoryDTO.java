@@ -7,11 +7,13 @@ public class CategoryDTO {
     private Long id;
     private String nameCategory;
     private CategoryList typeCategory;
+    private Long userId;
 
-    public CategoryDTO(Long id, String nameCategory, CategoryList typeCategory) {
+    public CategoryDTO(Long id, String nameCategory, CategoryList typeCategory, Long userId) {
         this.id = id;
         this.nameCategory = nameCategory;
         this.typeCategory = typeCategory;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -36,5 +38,13 @@ public class CategoryDTO {
 
     public void setTypeCategory(CategoryList typeCategory) {
         this.typeCategory = typeCategory;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

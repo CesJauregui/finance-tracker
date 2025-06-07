@@ -2,6 +2,7 @@ package com.finance.tracker.controllers;
 
 import com.finance.tracker.dto.CategoryDTO;
 import com.finance.tracker.entities.Category;
+import com.finance.tracker.entities.User;
 import com.finance.tracker.exceptions.InvalidCategoryTypeException;
 import com.finance.tracker.services.CategoryService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,8 +24,8 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<?> getCategories() {
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getAll());
+    public ResponseEntity<?> getCategories(@AuthenticationPrincipal User user) {
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategoryByUser(user));
     }
 
     @GetMapping("/{id}")
@@ -32,7 +34,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postCategory(@Valid @RequestBody Category category) {
+    public ResponseEntity<?> postCategory(@Valid @RequestBody CategoryDTO category) {
         try {
             CategoryDTO newCategory = categoryService.createCategory(category);
 

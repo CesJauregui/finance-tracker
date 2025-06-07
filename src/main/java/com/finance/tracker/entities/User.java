@@ -41,6 +41,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
 
+    @JsonIgnoreProperties(value="user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Category> categories;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createAt;
@@ -51,7 +55,7 @@ public class User implements UserDetails {
     }
 
     public User(Long id, String name, String surname, String username, String password, List<Account> account,
-                List<Transaction> transaction, LocalDateTime createAt, LocalDateTime updateAt) {
+                List<Transaction> transaction, List<Category> categories, LocalDateTime createAt, LocalDateTime updateAt) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -59,6 +63,7 @@ public class User implements UserDetails {
         this.password = password;
         this.accounts = account;
         this.transactions = transaction;
+        this.categories = categories;
         this.createAt = createAt;
         this.updateAt = updateAt;
     }
@@ -158,5 +163,13 @@ public class User implements UserDetails {
 
     public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

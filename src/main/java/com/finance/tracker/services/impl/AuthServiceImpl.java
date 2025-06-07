@@ -30,9 +30,10 @@ public class AuthServiceImpl {
     public AuthResponse login(LoginRequest request){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
         UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        User userLogged = userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.getToken(user);
 
-        return new AuthResponse(token,request.getUsername());
+        return new AuthResponse(token, userLogged.getId(), request.getUsername());
     }
 
     public AuthResponse register(RegisterRequest request){
@@ -44,6 +45,6 @@ public class AuthServiceImpl {
 
         userRepository.save(user);
 
-        return new AuthResponse(jwtService.getToken(user), request.getUsername());
+        return new AuthResponse(jwtService.getToken(user), user.getId(), request.getUsername());
     }
 }

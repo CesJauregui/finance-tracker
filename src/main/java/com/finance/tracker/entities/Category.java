@@ -31,6 +31,11 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Transaction> transactions;
 
+    @JsonIgnoreProperties(value="categories")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -40,11 +45,12 @@ public class Category {
 
     public Category(){}
 
-    public Category(Long id, String nameCategory, CategoryList typeCategory, List<Transaction> transactions) {
+    public Category(Long id, String nameCategory, CategoryList typeCategory, List<Transaction> transactions, User user) {
         this.id = id;
         this.nameCategory = nameCategory;
         this.typeCategory = typeCategory;
         this.transactions = transactions;
+        this.user = user;
     }
 
     public Long getId() {
@@ -77,5 +83,13 @@ public class Category {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

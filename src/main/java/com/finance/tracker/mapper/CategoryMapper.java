@@ -5,7 +5,7 @@ import com.finance.tracker.entities.Category;
 
 public class CategoryMapper {
     public static CategoryDTO toDTO(Category category){
-        return new CategoryDTO(category.getId(), category.getNameCategory(), category.getTypeCategory());
+        return new CategoryDTO(category.getId(), category.getNameCategory(), category.getTypeCategory(), category.getUser().getId());
     }
 
     public static Category toEntity(CategoryDTO categoryDTO){
